@@ -2,7 +2,6 @@
 import { useState } from "react";
 import Navigation from "@/components/Navigation";
 import UpgradeModal from "@/components/UpgradeModal";
-import ContextualActionBar from "@/components/ContextualActionBar";
 import MainContent from "@/components/MainContent";
 import { usePremiumFeatures } from "@/hooks/usePremiumFeatures";
 import { generateMockAnalysis } from "@/utils/mockAnalysis";
@@ -36,10 +35,8 @@ const Index = () => {
 
   return (
     <div className="min-h-screen">
-      <Navigation currentStep={currentStep} />
-      
-      <ContextualActionBar
-        currentStep={currentStep}
+      <Navigation 
+        currentStep={currentStep} 
         onStepChange={setCurrentStep}
         onPremiumFeatureClick={handlePremiumFeatureClick}
       />

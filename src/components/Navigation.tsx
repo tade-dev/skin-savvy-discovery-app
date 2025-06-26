@@ -1,11 +1,14 @@
 
 import { CheckCircle } from "lucide-react";
+import ContextualActionBar from "@/components/ContextualActionBar";
 
 interface NavigationProps {
   currentStep: string;
+  onStepChange: (step: 'upload' | 'analysis' | 'routine' | 'products' | 'stores' | 'pricing' | 'history' | 'reminders' | 'deals' | 'account') => void;
+  onPremiumFeatureClick: (feature: string, plan: 'Pro' | 'Elite') => boolean;
 }
 
-const Navigation = ({ currentStep }: NavigationProps) => {
+const Navigation = ({ currentStep, onStepChange, onPremiumFeatureClick }: NavigationProps) => {
   const steps = [
     { id: 'upload', label: 'Upload Photo', icon: '📸' },
     { id: 'analysis', label: 'AI Analysis', icon: '🧠' },
@@ -23,7 +26,14 @@ const Navigation = ({ currentStep }: NavigationProps) => {
           <h1 className="text-2xl font-bold bg-gradient-to-r from-blush-500 to-lavender-500 bg-clip-text text-transparent">
             SkinWise
           </h1>
-          <div className="text-sm text-gray-600">AI Skincare Advisor</div>
+          <div className="flex items-center space-x-4">
+            <div className="text-sm text-gray-600">AI Skincare Advisor</div>
+            <ContextualActionBar 
+              currentStep={currentStep}
+              onStepChange={onStepChange}
+              onPremiumFeatureClick={onPremiumFeatureClick}
+            />
+          </div>
         </div>
         
         <div className="flex items-center justify-between max-w-4xl mx-auto">

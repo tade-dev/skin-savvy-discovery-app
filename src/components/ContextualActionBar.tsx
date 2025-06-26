@@ -1,5 +1,13 @@
 
-import { HelpCircle, Sparkles, CreditCard, Save, RotateCcw, Crown, Clock, ShoppingBag, User } from "lucide-react";
+import { HelpCircle, Sparkles, CreditCard, Save, RotateCcw, Crown, Clock, ShoppingBag, User, ChevronDown } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 interface ContextualActionBarProps {
   currentStep: string;
@@ -129,18 +137,48 @@ const ContextualActionBar = ({ currentStep, onStepChange, onPremiumFeatureClick 
   };
 
   return (
-    <div className="fixed top-32 right-4 z-40 space-y-2">
-      {getContextualActions().map((action, index) => (
-        <button
-          key={index}
-          onClick={action.action}
-          className="flex items-center space-x-2 w-full px-4 py-2 bg-white/80 backdrop-blur-sm border border-white/20 rounded-lg text-sm font-medium hover:bg-white/90 hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+    <DropdownMenu>
+      <DropdownMenuTrigger className="flex items-center space-x-2 hover:bg-white/10 rounded-full p-2 transition-colors">
+        <Avatar className="w-8 h-8">
+          <AvatarImage src="" alt="Profile" />
+          <AvatarFallback className="bg-gradient-to-r from-blush-400 to-lavender-400 text-white text-sm">
+            U
+          </AvatarFallback>
+        </Avatar>
+        <ChevronDown className="w-4 h-4 text-white/80" />
+      </DropdownMenuTrigger>
+      
+      <DropdownMenuContent 
+        align="end" 
+        className="w-56 bg-white border border-gray-200 shadow-lg rounded-lg"
+      >
+        <div className="px-3 py-2 border-b border-gray-100">
+          <p className="text-sm font-medium text-gray-900">Quick Actions</p>
+          <p className="text-xs text-gray-500">Context-aware menu</p>
+        </div>
+        
+        {getContextualActions().map((action, index) => (
+          <DropdownMenuItem
+            key={index}
+            onClick={action.action}
+            className="flex items-center space-x-2 px-3 py-2 text-sm cursor-pointer hover:bg-gray-50"
+          >
+            {action.icon}
+            <span>{action.label}</span>
+          </DropdownMenuItem>
+        ))}
+        
+        <DropdownMenuSeparator />
+        
+        <DropdownMenuItem
+          onClick={() => onStepChange('account')}
+          className="flex items-center space-x-2 px-3 py-2 text-sm cursor-pointer hover:bg-gray-50"
         >
-          {action.icon}
-          <span>{action.label}</span>
-        </button>
-      ))}
-    </div>
+          <User className="w-4 h-4" />
+          <span>My Account</span>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 };
 
