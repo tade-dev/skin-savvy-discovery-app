@@ -12,6 +12,7 @@ import NearbyDeals from "@/components/NearbyDeals";
 import AccountPage from "@/components/AccountPage";
 import Navigation from "@/components/Navigation";
 import UpgradeModal from "@/components/UpgradeModal";
+import { HelpCircle, Sparkles, CreditCard, Save, RotateCcw, Crown, Clock, ShoppingBag, User } from "lucide-react";
 
 const Index = () => {
   const [currentStep, setCurrentStep] = useState<'upload' | 'analysis' | 'routine' | 'products' | 'stores' | 'pricing' | 'history' | 'reminders' | 'deals' | 'account'>('upload');
@@ -70,6 +71,129 @@ const Index = () => {
     }, 3000);
   };
 
+  // Contextual action bar configuration
+  const getContextualActions = () => {
+    switch (currentStep) {
+      case 'upload':
+        return [
+          { 
+            icon: <Sparkles className="w-4 h-4" />, 
+            label: 'How it Works', 
+            action: () => {
+              // Show how it works tutorial or guide
+              alert('How it Works tutorial would be shown here');
+            }
+          },
+          { 
+            icon: <CreditCard className="w-4 h-4" />, 
+            label: 'Pricing', 
+            action: () => setCurrentStep('pricing')
+          },
+          { 
+            icon: <HelpCircle className="w-4 h-4" />, 
+            label: 'Help', 
+            action: () => {
+              // Show help modal or guide
+              alert('Help center would be shown here');
+            }
+          }
+        ];
+      case 'analysis':
+        return [
+          { 
+            icon: <Save className="w-4 h-4" />, 
+            label: 'Save Analysis', 
+            action: () => {
+              if (!handlePremiumFeatureClick("Save Analysis", "Pro")) return;
+              alert('Analysis saved to history');
+            }
+          },
+          { 
+            icon: <RotateCcw className="w-4 h-4" />, 
+            label: 'New Scan', 
+            action: () => setCurrentStep('upload')
+          },
+          { 
+            icon: <Crown className="w-4 h-4" />, 
+            label: 'Upgrade', 
+            action: () => setCurrentStep('pricing')
+          }
+        ];
+      case 'routine':
+        return [
+          { 
+            icon: <Clock className="w-4 h-4" />, 
+            label: 'Set Reminders', 
+            action: () => setCurrentStep('reminders')
+          },
+          { 
+            icon: <ShoppingBag className="w-4 h-4" />, 
+            label: 'Find Products', 
+            action: () => setCurrentStep('products')
+          },
+          { 
+            icon: <User className="w-4 h-4" />, 
+            label: 'Account', 
+            action: () => setCurrentStep('account')
+          }
+        ];
+      case 'products':
+        return [
+          { 
+            icon: <Crown className="w-4 h-4" />, 
+            label: 'Deals', 
+            action: () => setCurrentStep('deals')
+          },
+          { 
+            icon: <Save className="w-4 h-4" />, 
+            label: 'History', 
+            action: () => setCurrentStep('history')
+          },
+          { 
+            icon: <User className="w-4 h-4" />, 
+            label: 'Account', 
+            action: () => setCurrentStep('account')
+          }
+        ];
+      case 'stores':
+        return [
+          { 
+            icon: <Crown className="w-4 h-4" />, 
+            label: 'Elite Deals', 
+            action: () => setCurrentStep('deals')
+          },
+          { 
+            icon: <Clock className="w-4 h-4" />, 
+            label: 'Reminders', 
+            action: () => setCurrentStep('reminders')
+          },
+          { 
+            icon: <User className="w-4 h-4" />, 
+            label: 'Account', 
+            action: () => setCurrentStep('account')
+          }
+        ];
+      default:
+        return [
+          { 
+            icon: <CreditCard className="w-4 h-4" />, 
+            label: 'Pricing', 
+            action: () => setCurrentStep('pricing')
+          },
+          { 
+            icon: <Save className="w-4 h-4" />, 
+            label: 'History', 
+            action: () => setCurrentStep('history')
+          },
+          { 
+            icon: <User className="w-4 h-4" />, 
+            label: 'Account', 
+            action: () => setCurrentStep('account')
+          }
+        ];
+    }
+  };
+
   const renderCurrentStep = () => {
     switch (currentStep) {
       case 'upload':
@@ -104,38 +228,18 @@ const Index = () => {
     <div className="min-h-screen">
       <Navigation currentStep={currentStep} />
       
-      {/* Premium Features Navigation */}
+      {/* Contextual Action Bar */}
       <div className="fixed top-20 right-4 z-40 space-y-2">
-        <button
-          onClick={() => setCurrentStep('pricing')}
-          className="block w-full px-4 py-2 bg-gradient-to-r from-blush-500 to-lavender-500 text-white rounded-lg text-sm font-medium hover:shadow-lg transition-all duration-300"
-        >
-          💎 Pricing
-        </button>
-        <button
-          onClick={() => setCurrentStep('history')}
-          className="block w-full px-4 py-2 bg-white/80 backdrop-blur-sm border border-white/20 rounded-lg text-sm font-medium hover:bg-white/90 transition-all duration-300"
-        >
-          📊 History
-        </button>
-        <button
-          onClick={() => setCurrentStep('reminders')}
-          className="block w-full px-4 py-2 bg-white/80 backdrop-blur-sm border border-white/20 rounded-lg text-sm font-medium hover:bg-white/90 transition-all duration-300"
-        >
-          ⏰ Reminders
-        </button>
-        <button
-          onClick={() => setCurrentStep('deals')}
-          className="block w-full px-4 py-2 bg-white/80 backdrop-blur-sm border border-white/20 rounded-lg text-sm font-medium hover:bg-white/90 transition-all duration-300"
-        >
-          🏷️ Deals
-        </button>
-        <button
-          onClick={() => setCurrentStep('account')}
-          className="block w-full px-4 py-2 bg-white/80 backdrop-blur-sm border border-white/20 rounded-lg text-sm font-medium hover:bg-white/90 transition-all duration-300"
-        >
-          👤 Account
-        </button>
+        {getContextualActions().map((action, index) => (
+          <button
+            key={index}
+            onClick={action.action}
+            className="flex items-center space-x-2 w-full px-4 py-2 bg-white/80 backdrop-blur-sm border border-white/20 rounded-lg text-sm font-medium hover:bg-white/90 hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+          >
+            {action.icon}
+            <span>{action.label}</span>
+          </button>
+        ))}
       </div>
 
       <main className="pt-20">
