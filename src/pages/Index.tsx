@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import UploadInterface from "@/components/UploadInterface";
 import AnalysisResults from "@/components/AnalysisResults";
@@ -228,8 +227,8 @@ const Index = () => {
     <div className="min-h-screen">
       <Navigation currentStep={currentStep} />
       
-      {/* Contextual Action Bar */}
-      <div className="fixed top-20 right-4 z-40 space-y-2">
+      {/* Contextual Action Bar - moved below navigation */}
+      <div className="fixed top-32 right-4 z-40 space-y-2">
         {getContextualActions().map((action, index) => (
           <button
             key={index}
