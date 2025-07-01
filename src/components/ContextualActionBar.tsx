@@ -138,33 +138,35 @@ const ContextualActionBar = ({ currentStep, onStepChange, onPremiumFeatureClick 
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="flex items-center space-x-2 hover:bg-white/10 rounded-full p-2 transition-colors">
-        <Avatar className="w-8 h-8">
+      <DropdownMenuTrigger className="flex items-center space-x-2 hover:bg-white/5 rounded-2xl p-2 transition-all duration-300 group">
+        <Avatar className="w-9 h-9 ring-2 ring-ai-purple/50 group-hover:ring-ai-purple transition-all duration-300">
           <AvatarImage src="" alt="Profile" />
-          <AvatarFallback className="bg-gradient-to-r from-blush-400 to-lavender-400 text-white text-sm">
-            U
+          <AvatarFallback className="ai-gradient text-white text-sm font-semibold">
+            AI
           </AvatarFallback>
         </Avatar>
-        <ChevronDown className="w-4 h-4 text-white/80" />
+        <ChevronDown className="w-4 h-4 text-foreground/60 group-hover:text-ai-purple transition-colors" />
       </DropdownMenuTrigger>
       
       <DropdownMenuContent 
         align="end" 
-        className="w-56 bg-white border border-gray-200 shadow-lg rounded-lg"
+        className="w-64 glass-card-glow border-white/20 rounded-2xl p-2"
       >
-        <div className="px-3 py-2 border-b border-gray-100">
-          <p className="text-sm font-medium text-gray-900">Quick Actions</p>
-          <p className="text-xs text-gray-500">Context-aware menu</p>
+        <div className="px-4 py-3 border-b border-white/10">
+          <p className="text-sm font-semibold text-foreground">AI Assistant</p>
+          <p className="text-xs text-muted-foreground">Smart actions based on your progress</p>
         </div>
         
         {getContextualActions().map((action, index) => (
           <DropdownMenuItem
             key={index}
             onClick={action.action}
-            className="flex items-center space-x-2 px-3 py-2 text-sm cursor-pointer hover:bg-gray-50"
+            className="flex items-center space-x-3 px-4 py-3 text-sm cursor-pointer hover:bg-white/5 rounded-xl transition-all duration-200 group"
           >
-            {action.icon}
-            <span>{action.label}</span>
+            <div className="text-ai-purple group-hover:text-ai-cyan transition-colors">
+              {action.icon}
+            </div>
+            <span className="font-medium">{action.label}</span>
           </DropdownMenuItem>
         ))}
         
@@ -172,10 +174,12 @@ const ContextualActionBar = ({ currentStep, onStepChange, onPremiumFeatureClick 
         
         <DropdownMenuItem
           onClick={() => onStepChange('account')}
-          className="flex items-center space-x-2 px-3 py-2 text-sm cursor-pointer hover:bg-gray-50"
+          className="flex items-center space-x-3 px-4 py-3 text-sm cursor-pointer hover:bg-white/5 rounded-xl transition-all duration-200 group"
         >
-          <User className="w-4 h-4" />
-          <span>My Account</span>
+          <div className="text-ai-purple group-hover:text-ai-cyan transition-colors">
+            <User className="w-4 h-4" />
+          </div>
+          <span className="font-medium">My Account</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

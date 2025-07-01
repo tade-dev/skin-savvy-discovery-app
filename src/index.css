@@ -3,39 +3,65 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. */
+/* Futuristic AI-inspired design system */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Dark theme primary colors */
+    --background: 222 15% 5%;
+    --foreground: 0 0% 98%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 222 15% 8%;
+    --card-foreground: 0 0% 95%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 222 15% 8%;
+    --popover-foreground: 0 0% 95%;
 
-    --primary: 344 83% 68%;
-    --primary-foreground: 0 0% 100%;
+    /* AI-inspired primary colors */
+    --primary: 260 100% 70%;
+    --primary-foreground: 0 0% 5%;
+    --primary-glow: 260 100% 80%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 222 15% 12%;
+    --secondary-foreground: 0 0% 90%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 222 15% 10%;
+    --muted-foreground: 0 0% 60%;
 
-    --accent: 174 44% 85%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 180 100% 70%;
+    --accent-foreground: 222 15% 5%;
+    --accent-glow: 180 100% 80%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 85% 60%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 344 83% 68%;
+    --border: 222 15% 15%;
+    --input: 222 15% 12%;
+    --ring: 260 100% 70%;
 
-    --radius: 1rem;
+    /* AI color palette */
+    --ai-purple: 260 100% 70%;
+    --ai-purple-glow: 260 100% 80%;
+    --ai-cyan: 180 100% 70%;
+    --ai-cyan-glow: 180 100% 80%;
+    --ai-pink: 320 100% 75%;
+    --ai-pink-glow: 320 100% 85%;
+    --ai-blue: 220 100% 70%;
+    --ai-blue-glow: 220 100% 80%;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--ai-purple)), hsl(var(--ai-cyan)));
+    --gradient-secondary: linear-gradient(135deg, hsl(var(--ai-cyan)), hsl(var(--ai-pink)));
+    --gradient-accent: linear-gradient(135deg, hsl(var(--ai-pink)), hsl(var(--ai-blue)));
+    --gradient-glow: linear-gradient(135deg, hsl(var(--ai-purple-glow)), hsl(var(--ai-cyan-glow)));
+
+    /* Shadows and glows */
+    --shadow-glow: 0 0 50px hsl(var(--ai-purple) / 0.3);
+    --shadow-glow-strong: 0 0 100px hsl(var(--ai-purple) / 0.4);
+    --shadow-cyan-glow: 0 0 50px hsl(var(--ai-cyan) / 0.3);
+    --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.3);
+
+    --radius: 1.25rem;
   }
 
   * {
@@ -43,24 +69,74 @@
   }
 
   body {
-    @apply bg-background text-foreground font-poppins;
-    background: linear-gradient(135deg, #fef7f7 0%, #f0fdfa 50%, #faf9ff 100%);
+    @apply bg-background text-foreground font-urbanist;
+    background: 
+      radial-gradient(circle at 20% 30%, hsl(var(--ai-purple) / 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, hsl(var(--ai-cyan) / 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, hsl(var(--ai-pink) / 0.05) 0%, transparent 50%),
+      linear-gradient(135deg, hsl(var(--background)) 0%, hsl(222 15% 3%) 100%);
     min-height: 100vh;
+    overflow-x: hidden;
   }
 }
 
 @layer components {
   .glass-card {
-    @apply bg-white/80 backdrop-blur-sm border border-white/20 shadow-lg;
+    @apply bg-card/80 backdrop-blur-xl border border-white/10 shadow-2xl;
+    box-shadow: var(--shadow-glass);
   }
   
-  .glass-button {
-    @apply bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-all duration-300;
+  .glass-card-glow {
+    @apply bg-card/60 backdrop-blur-2xl border border-white/20;
+    box-shadow: var(--shadow-glow), var(--shadow-glass);
+  }
+  
+  .ai-gradient {
+    background: var(--gradient-primary);
+  }
+  
+  .ai-gradient-secondary {
+    background: var(--gradient-secondary);
+  }
+  
+  .ai-gradient-accent {
+    background: var(--gradient-accent);
+  }
+  
+  .ai-glow {
+    box-shadow: var(--shadow-glow);
+  }
+  
+  .ai-glow-strong {
+    box-shadow: var(--shadow-glow-strong);
+  }
+  
+  .ai-text-gradient {
+    background: var(--gradient-primary);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
   
   .shimmer-effect {
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    background: linear-gradient(90deg, transparent, hsl(var(--ai-purple) / 0.4), transparent);
     background-size: 200% 100%;
     @apply animate-shimmer;
+  }
+  
+  .scanning-animation {
+    @apply animate-pulse;
+    background: linear-gradient(45deg, 
+      hsl(var(--ai-purple) / 0.1), 
+      hsl(var(--ai-cyan) / 0.2), 
+      hsl(var(--ai-pink) / 0.1)
+    );
+    background-size: 400% 400%;
+    animation: scanning 3s ease-in-out infinite;
+  }
+  
+  @keyframes scanning {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
   }
 }

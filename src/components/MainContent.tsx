@@ -1,5 +1,5 @@
 
-import UploadInterface from "@/components/UploadInterface";
+import FuturisticUpload from "@/components/FuturisticUpload";
 import AnalysisResults from "@/components/AnalysisResults";
 import SkincareRoutine from "@/components/SkincareRoutine";
 import ProductRecommendations from "@/components/ProductRecommendations";
@@ -28,7 +28,7 @@ const MainContent = ({
   const renderCurrentStep = () => {
     switch (currentStep) {
       case 'upload':
-        return <UploadInterface onImageUpload={onImageUpload} />;
+        return <FuturisticUpload onImageUpload={onImageUpload} />;
       case 'analysis':
         return <AnalysisResults data={analysisData} onNext={() => onStepChange('routine')} />;
       case 'routine':
@@ -51,7 +51,7 @@ const MainContent = ({
       case 'account':
         return <AccountPage />;
       default:
-        return <UploadInterface onImageUpload={onImageUpload} />;
+        return <FuturisticUpload onImageUpload={onImageUpload} />;
     }
   };
 
